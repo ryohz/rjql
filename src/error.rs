@@ -1,7 +1,7 @@
 use thiserror::Error;
 
 #[derive(Error, Debug)]
-pub enum RefError {
+pub enum Error {
     #[error("No value is found by specified query")]
     NotFound,
     #[error("the query starts or ends by dot(.)")]
