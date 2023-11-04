@@ -118,6 +118,9 @@ impl Json {
     // 参照の目的が改変だった場合は、存在しない要素をnullで初期化してdataに代入して、その新しくできたnullの要素の可変参照を返す
     fn refer_(&mut self, path: &String, ref_purpose: RefPurpose) -> Result<&mut Value, Error> {
         let mut current = &mut self.data;
+        if path.to_string() == ".".to_string() {
+            return Ok(current);
+        }
         if path.is_empty() {
             return Err(Error::EmptyQuery);
         }
