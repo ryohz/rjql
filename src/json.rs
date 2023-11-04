@@ -23,7 +23,7 @@ impl Json {
     pub fn refer(&mut self, query: &String) -> Result<String, Error> {
         let v = self.refer_(query, RefPurpose::Ref)?;
         match v {
-            Value::String(v) => Ok(v.get(1..v.len() - 1).unwrap().to_string()),
+            Value::String(v) => Ok(v.to_string()),
             _ => Ok(v.to_string()),
         }
     }
