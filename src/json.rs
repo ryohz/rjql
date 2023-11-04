@@ -22,7 +22,10 @@ impl Json {
 
     pub fn refer(&mut self, query: &String) -> Result<String, Error> {
         let v = self.refer_(query, RefPurpose::Ref)?;
-        Ok(v.to_string())
+        match v {
+            Value::String(v) => Ok(v.get(1..v.len() - 1).unwrap().to_string()),
+            _ => Ok(v.to_string()),
+        }
     }
 
     pub fn delete(&mut self, path: &String) -> Result<(), Error> {
@@ -108,7 +111,7 @@ impl Json {
     }
 
     // function return a mutable reference of element of specified path
-    // if the purpose of the reference is reading, return NotFound error when no element that specified path is pointing exists 
+    // if the purpose of the reference is reading, return NotFound error when no element that specified path is pointing exists
     // if if's modifying, making new element that is initialized by null, update data, and return imutable reference of new null element
     // 指定されたパスの可変参照を返す関数
     // 参照の目的が単に閲覧である場合は、存在しない要素を参照しようとしたときにNotFoundを返す
